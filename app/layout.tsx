@@ -15,9 +15,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
     title: 'Wenly Admin | Dashboard',
     description: 'Analytics & Management for Wenly App',
-    icons: {
-        icon: '/favicon.png',
-    },
 };
 
 import { ThemeProvider } from '@/components/ThemeProvider';
