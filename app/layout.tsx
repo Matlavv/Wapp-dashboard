@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: 'Wenly Admin | Dashboard',
-    description: 'Analytics & Management for Wenly App',
+    title: 'W Admin | Dashboard',
+    description: 'Analytics & Management for W App',
 };
 
 import { ThemeProvider } from '@/components/ThemeProvider';

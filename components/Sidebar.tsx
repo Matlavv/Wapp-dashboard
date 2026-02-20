@@ -25,7 +25,7 @@ const navItems = [
     { icon: Settings, label: 'Paramètres', href: '/dashboard/settings' },
 ];
 
-export const Sidebar = () => {
+export const Sidebar = ({ onNavigate }: { onNavigate?: () => void }) => {
     const pathname = usePathname();
     const router = useRouter();
     const { theme, setTheme } = useTheme();
@@ -44,11 +44,11 @@ export const Sidebar = () => {
     };
 
     return (
-        <aside className="w-72 h-screen sticky top-0 bg-card border-r border-border flex flex-col p-6 z-50">
+        <aside className="w-full h-full bg-card border-r border-border flex flex-col p-6 overflow-y-auto">
             {/* Modern & Sober Logo */}
-            <div className="mb-12 px-2">
+            <div className="mb-12 px-2 pt-2">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl overflow-hidden relative shadow-lg bg-black dark:shadow-black/50">
+                    <div className="w-10 h-10 rounded-xl overflow-hidden relative shadow-lg bg-black dark:shadow-black/50 shrink-0">
                         <Image src="/logo.png" alt="Wenly Logo" fill className="object-cover p-2" />
                     </div>
                     <div>
@@ -69,6 +69,7 @@ export const Sidebar = () => {
                         <Link
                             key={item.href}
                             href={item.href}
+                            onClick={onNavigate}
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 group ${
                                 isActive
                                     ? 'text-foreground bg-secondary shadow-sm border border-border/50'

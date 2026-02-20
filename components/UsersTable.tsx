@@ -1,17 +1,7 @@
 'use client';
 
 import { sendPasswordResetEmail } from '@/app/actions';
-import {
-    ArrowDown,
-    ArrowUp,
-    ArrowUpRight,
-    Filter,
-    Flame,
-    Mail,
-    Search,
-    Shield,
-    Star,
-} from 'lucide-react';
+import { ArrowDown, ArrowUp, Filter, Flame, Mail, Search, Shield, Star } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -91,8 +81,8 @@ export const UsersTable = ({ users }: { users: User[] }) => {
                 </div>
             </div>
 
-            <div className="bg-card border border-border/50 rounded-3xl overflow-hidden shadow-sm">
-                <table className="w-full text-left border-collapse">
+            <div className="bg-card border border-border/50 rounded-3xl overflow-hidden shadow-sm overflow-x-auto">
+                <table className="w-full text-left border-collapse min-w-[800px]">
                     <thead>
                         <tr className="bg-secondary/50 border-bottom border-border/50">
                             <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
@@ -188,7 +178,7 @@ export const UsersTable = ({ users }: { users: User[] }) => {
                                     <button
                                         onClick={() => handleSendResetEmail(user)}
                                         disabled={loadingId === user.id}
-                                        className="p-2 rounded-lg hover:bg-secondary border border-transparent hover:border-border/50 text-muted-foreground hover:text-foreground transition-all opacity-0 group-hover:opacity-100 disabled:opacity-50"
+                                        className="p-2 rounded-lg hover:bg-secondary border border-transparent hover:border-border/50 text-muted-foreground hover:text-foreground transition-all disabled:opacity-50"
                                         title="Envoyer email de réinitialisation"
                                     >
                                         {loadingId === user.id ? (
@@ -196,9 +186,6 @@ export const UsersTable = ({ users }: { users: User[] }) => {
                                         ) : (
                                             <Mail className="w-4 h-4" />
                                         )}
-                                    </button>
-                                    <button className="p-2 rounded-lg hover:bg-foreground hover:text-background transition-all opacity-0 group-hover:opacity-100">
-                                        <ArrowUpRight className="w-4 h-4" />
                                     </button>
                                 </td>
                             </tr>

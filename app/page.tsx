@@ -19,9 +19,9 @@ export default async function Home() {
             <header className="px-8 py-6 flex justify-between items-center relative z-10">
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl overflow-hidden relative shadow-lg bg-black">
-                        <Image src="/logo.png" alt="Wenly Logo" fill className="object-cover p-2" />
+                        <Image src="/logo.png" alt="W Logo" fill className="object-cover p-2" />
                     </div>
-                    <span className="font-bold text-lg tracking-tight">Wenly Admin</span>
+                    <span className="font-bold text-lg tracking-tight">W Admin</span>
                 </div>
 
                 {user ? (
@@ -49,8 +49,8 @@ export default async function Home() {
                     </span>
                 </div>
 
-                <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50">
-                    Wenly
+                <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-6 bg-clip-text text-transparent bg-linear-to-b from-foreground to-foreground/50">
+                    W
                     <br />
                     Management
                 </h1>

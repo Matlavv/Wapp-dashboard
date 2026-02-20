@@ -1,5 +1,4 @@
 import { supabaseAdmin } from '@/lib/supabase';
-import { Sidebar } from '@/components/Sidebar';
 import { UsersTable } from '@/components/UsersTable';
 
 export const dynamic = 'force-dynamic';
@@ -26,26 +25,22 @@ export default async function UsersPage() {
   }) || [];
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground overflow-hidden">
-      <Sidebar />
-      
-      <main className="flex-1 p-12 overflow-y-auto">
-        <header className="mb-8">
-          <div>
-            <h1 className="text-3xl font-black tracking-tight mb-2">Utilisateurs</h1>
-            <p className="text-muted-foreground text-sm font-medium">
-              Gestion de la communauté et des accès.
-            </p>
-          </div>
-        </header>
+    <div className="p-6 md:p-12 space-y-8">
+      <header className="mb-8">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2">Utilisateurs</h1>
+          <p className="text-muted-foreground text-sm font-medium">
+            Gestion de la communauté et des accès.
+          </p>
+        </div>
+      </header>
 
-        {/* Client Component handling Search, Sort and Actions */}
-        <UsersTable users={usersWithEmail} />
+      {/* Client Component handling Search, Sort and Actions */}
+      <UsersTable users={usersWithEmail} />
 
-        <footer className="mt-20 py-10 opacity-20 text-center">
-          <p className="text-[10px] font-bold tracking-[0.5em] uppercase italic">Wenly Management Interface</p>
-        </footer>
-      </main>
+      <footer className="mt-20 py-10 opacity-20 text-center">
+        <p className="text-[10px] font-bold tracking-[0.5em] uppercase italic">Wenly Management Interface</p>
+      </footer>
     </div>
   );
 }
