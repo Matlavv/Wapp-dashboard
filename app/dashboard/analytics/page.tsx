@@ -1,6 +1,6 @@
 import { GrowthChart } from '@/components/Charts';
 import { getDashboardStats } from '@/lib/stats-api';
-import { Calendar, Heart, Share2, TrendingUp, Users } from 'lucide-react';
+import { Apple, Calendar, Globe, Heart, Share2, Smartphone, TrendingUp, Users } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -86,6 +86,53 @@ export default async function AnalyticsPage() {
                             <p className="text-[10px] font-bold text-muted-foreground leading-relaxed uppercase tracking-widest">
                                 Calculé en temps réel depuis l&apos;infrastructure Wenly.
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Technical Distribution Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-card border border-border/50 p-8 rounded-3xl shadow-sm">
+                    <h3 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground mb-10">
+                        Origine (Store)
+                    </h3>
+                    <div className="grid grid-cols-3 gap-4">
+                        <div className="bg-secondary/20 border border-border/40 p-5 rounded-2xl text-center">
+                            <Apple className="w-5 h-5 mx-auto mb-3 text-muted-foreground" />
+                            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1 opacity-50">iOS</p>
+                            <p className="text-xl font-black italic">{stats.originStats.ios}</p>
+                        </div>
+                        <div className="bg-secondary/20 border border-border/40 p-5 rounded-2xl text-center">
+                            <Smartphone className="w-5 h-5 mx-auto mb-3 text-muted-foreground" />
+                            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1 opacity-50">Android</p>
+                            <p className="text-xl font-black italic">{stats.originStats.android}</p>
+                        </div>
+                        <div className="bg-secondary/20 border border-border/40 p-5 rounded-2xl text-center flex flex-col justify-center">
+                            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1 opacity-50">Autre</p>
+                            <p className="text-xl font-black italic">{stats.originStats.other}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-card border border-border/50 p-8 rounded-3xl shadow-sm">
+                    <h3 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground mb-10">
+                        Langues Préférées
+                    </h3>
+                    <div className="grid grid-cols-3 gap-4">
+                        <div className="bg-secondary/20 border border-border/40 p-5 rounded-2xl text-center">
+                            <Globe className="w-5 h-5 mx-auto mb-3 text-muted-foreground/50" />
+                            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1 opacity-50">Français</p>
+                            <p className="text-xl font-black italic">{stats.languageStats.fr}</p>
+                        </div>
+                        <div className="bg-secondary/20 border border-border/40 p-5 rounded-2xl text-center">
+                            <Globe className="w-5 h-5 mx-auto mb-3 text-muted-foreground/30" />
+                            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1 opacity-50">Anglais</p>
+                            <p className="text-xl font-black italic">{stats.languageStats.en}</p>
+                        </div>
+                        <div className="bg-secondary/20 border border-border/40 p-5 rounded-2xl text-center flex flex-col justify-center">
+                            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1 opacity-50">Autre</p>
+                            <p className="text-xl font-black italic">{stats.languageStats.other}</p>
                         </div>
                     </div>
                 </div>

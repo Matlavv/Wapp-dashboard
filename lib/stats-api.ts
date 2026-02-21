@@ -8,6 +8,8 @@ export type DashboardStats = {
   hourlyGrowth: { date: string; count: number }[];
   conversionRate: number;
   retentionRate: number;
+  originStats: { ios: number; android: number; other: number };
+  languageStats: { fr: number; en: number; other: number };
   logs: any[];
 };
 
@@ -28,10 +30,26 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
       supabaseAdmin.from('profiles').select('*', { count: 'exact', head: true }),
       supabaseAdmin.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', last24h.toISOString()),
       supabaseAdmin.from('daily_symptoms').select('user_id').gte('created_at', last24h.toISOString()),
-      supabaseAdmin.from('profiles').select('created_at').order('created_at', { ascending: true }),
+      supabaseAdmin.from('profiles').select('created_at, store_origin, language').order('created_at', { ascending: true }),
       supabaseAdmin.from('user_partners').select('*', { count: 'exact', head: true }).eq('is_active', true),
       supabaseAdmin.from('cleanup_logs' as any).select('*').order('created_at', { ascending: false }).limit(5)
     ]);
+
+    // Origin and Language stats
+    const originStats = { ios: 0, android: 0, other: 0 };
+    const languageStats = { fr: 0, en: 0, other: 0 };
+
+    allProfiles?.forEach(p => {
+      // Origin
+      if (p.store_origin === 'ios') originStats.ios++;
+      else if (p.store_origin === 'android') originStats.android++;
+      else originStats.other++;
+
+      // Language
+      if (p.language === 'fr') languageStats.fr++;
+      else if (p.language === 'en') languageStats.en++;
+      else languageStats.other++;
+    });
 
     // Active users logic
     const active24hSet = new Set(activeLogs24h?.map(l => l.user_id));
@@ -94,6 +112,8 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
       hourlyGrowth, // Last 24h detailed
       conversionRate: totalUsers ? Math.round(((coupledUsers || 0) * 2 / totalUsers) * 100) : 0,
       retentionRate: totalUsers ? Math.round((activeUsers24h / totalUsers) * 100) : 0,
+      originStats,
+      languageStats,
       logs: cleanupLogs || []
     };
   } catch (error) {
@@ -106,6 +126,8 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
       hourlyGrowth: [],
       conversionRate: 0,
       retentionRate: 0,
+      originStats: { ios: 0, android: 0, other: 0 },
+      languageStats: { fr: 0, en: 0, other: 0 },
       logs: []
     };
   }
