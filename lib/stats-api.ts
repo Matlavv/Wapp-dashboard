@@ -10,6 +10,7 @@ export type DashboardStats = {
   retentionRate: number;
   originStats: { ios: number; android: number; other: number };
   languageStats: { fr: number; en: number; other: number };
+  countryStats: { [key: string]: number };
   logs: any[];
 };
 
@@ -30,7 +31,7 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
       supabaseAdmin.from('profiles').select('*', { count: 'exact', head: true }),
       supabaseAdmin.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', last24h.toISOString()),
       supabaseAdmin.from('daily_symptoms').select('user_id').gte('created_at', last24h.toISOString()),
-      supabaseAdmin.from('profiles').select('created_at, store_origin, language').order('created_at', { ascending: true }),
+      supabaseAdmin.from('profiles').select('created_at, store_origin, language, country').order('created_at', { ascending: true }),
       supabaseAdmin.from('user_partners').select('*', { count: 'exact', head: true }).eq('is_active', true),
       supabaseAdmin.from('cleanup_logs' as any).select('*').order('created_at', { ascending: false }).limit(5)
     ]);
@@ -38,6 +39,7 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
     // Origin and Language stats
     const originStats = { ios: 0, android: 0, other: 0 };
     const languageStats = { fr: 0, en: 0, other: 0 };
+    const countryStats: { [key: string]: number } = {};
 
     allProfiles?.forEach(p => {
       // Origin
@@ -49,6 +51,13 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
       if (p.language === 'fr') languageStats.fr++;
       else if (p.language === 'en') languageStats.en++;
       else languageStats.other++;
+
+      // Country
+      if (p.country) {
+        countryStats[p.country] = (countryStats[p.country] || 0) + 1;
+      } else {
+        countryStats['Inconnu'] = (countryStats['Inconnu'] || 0) + 1;
+      }
     });
 
     // Active users logic
@@ -114,6 +123,7 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
       retentionRate: totalUsers ? Math.round((activeUsers24h / totalUsers) * 100) : 0,
       originStats,
       languageStats,
+      countryStats,
       logs: cleanupLogs || []
     };
   } catch (error) {
@@ -128,6 +138,7 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
       retentionRate: 0,
       originStats: { ios: 0, android: 0, other: 0 },
       languageStats: { fr: 0, en: 0, other: 0 },
+      countryStats: {},
       logs: []
     };
   }

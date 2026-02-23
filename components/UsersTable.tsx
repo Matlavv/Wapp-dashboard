@@ -29,6 +29,7 @@ interface User {
     email: string | null;
     store_origin: string | null;
     language: string | null;
+    country: string | null;
 }
 
 export const UsersTable = ({ users }: { users: User[] }) => {
@@ -110,6 +111,9 @@ export const UsersTable = ({ users }: { users: User[] }) => {
                             </th>
                             <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-center">
                                 Langue
+                            </th>
+                            <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-center">
+                                Pays
                             </th>
                             <th
                                 className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-center cursor-pointer hover:text-foreground transition-colors group select-none"
@@ -197,6 +201,19 @@ export const UsersTable = ({ users }: { users: User[] }) => {
                                     )}
                                 </td>
                                 <td className="px-8 py-5 text-center">
+                                    {user.country ? (
+                                        <div className="flex items-center justify-center gap-1.5">
+                                            <span className="text-[10px] font-bold uppercase text-muted-foreground/70 tracking-widest">
+                                                {user.country}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <span className="text-[10px] text-muted-foreground/30 font-bold uppercase tracking-tight italic">
+                                            -
+                                        </span>
+                                    )}
+                                </td>
+                                <td className="px-8 py-5 text-center">
                                     <span className="text-[11px] font-bold text-muted-foreground">
                                         {new Date(user.created_at).toLocaleDateString('fr-FR', {
                                             day: 'numeric',
@@ -248,7 +265,7 @@ export const UsersTable = ({ users }: { users: User[] }) => {
                         {sortedUsers.length === 0 && (
                             <tr>
                                 <td
-                                    colSpan={8}
+                                    colSpan={9}
                                     className="px-8 py-12 text-center text-muted-foreground italic"
                                 >
                                     Aucun utilisateur trouvé pour &quot;{searchTerm}&quot;.
