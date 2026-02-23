@@ -1,6 +1,6 @@
 import { GrowthChart } from '@/components/Charts';
 import { getDashboardStats } from '@/lib/stats-api';
-import { Apple, Calendar, Globe, Heart, Share2, Smartphone, TrendingUp, Users } from 'lucide-react';
+import { Apple, Calendar, Crown, Globe, Heart, Share2, Smartphone, TrendingUp, Users } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -77,6 +77,15 @@ export default async function AnalyticsPage() {
                                 </div>
                                 <span className="text-xl font-black italic">
                                     {stats.conversionRate}%
+                                </span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <Crown className="w-5 h-5 text-muted-foreground" />
+                                    <span className="text-sm font-bold opacity-60">Premium</span>
+                                </div>
+                                <span className="text-xl font-black italic">
+                                    {stats.premiumRate}% <span className="text-sm font-bold opacity-40">({stats.premiumCount})</span>
                                 </span>
                             </div>
                         </div>
